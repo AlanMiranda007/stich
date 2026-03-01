@@ -1,64 +1,143 @@
+:root {
+    --stitch-blue: #4a8ec2;
+    --stitch-dark-blue: #35668d;
+    --stitch-light-blue: #9ed6f1;
+    --eye-patch: #c6e7f8;
+    --nose-blue: #2a3d66;
+}
 
 body {
-    margin: 0;
-    height: 100vh;
+    background-color: #f0f0f0;
     display: flex;
     justify-content: center;
     align-items: center;
-    background: linear-gradient(135deg, #87ceeb, #ffffff);
-    font-family: Arial, sans-serif;
+    height: 100vh;
+    margin: 0;
 }
 
-header {
-    text-align: center;
-}
-
-.cara {
+.canvas {
     position: relative;
-    width: 150px;
-    height: 150px;
-    background: #ffd699;
-    border-radius: 50%;
-    margin: 0 auto 20px auto;
+    width: 400px;
+    height: 400px;
 }
 
-.ojo {
+/* --- CUERPO --- */
+.body {
     position: absolute;
-    width: 20px;
-    height: 20px;
-    background: black;
-    border-radius: 50%;
-    top: 40px;
+    width: 140px;
+    height: 120px;
+    background: var(--stitch-blue);
+    bottom: 50px;
+    left: 130px;
+    border-radius: 50% 50% 40% 40%;
 }
 
-.ojo-izq {
-    left: 40px;
-}
-
-.ojo-der {
-    right: 40px;
-}
-
-.bigote {
+.tummy {
     position: absolute;
     width: 80px;
-    height: 20px;
-    background: black;
-    top: 80px;
-    left: 35px;
-    border-radius: 50px;
+    height: 70px;
+    background: var(--stitch-light-blue);
+    bottom: 10px;
+    left: 30px;
+    border-radius: 50%;
 }
 
-.boca {
+/* --- CABEZA --- */
+.head {
+    position: absolute;
+    width: 200px;
+    height: 150px;
+    background: var(--stitch-blue);
+    top: 100px;
+    left: 100px;
+    border-radius: 50% 50% 45% 45%;
+    z-index: 10;
+}
+
+/* --- OREJAS --- */
+.ear {
+    position: absolute;
+    width: 70px;
+    height: 160px;
+    background: var(--stitch-blue);
+    border-radius: 50%;
+    z-index: 1;
+    overflow: hidden;
+}
+
+.ear::after {
+    content: '';
+    position: absolute;
+    width: 70%;
+    height: 80%;
+    background: #e99bb5; /* El rosado de adentro */
+    border-radius: 50%;
+    top: 10%;
+    left: 15%;
+}
+
+.ear.left {
+    top: 50px;
+    left: 60px;
+    transform: rotate(-35deg);
+}
+
+.ear.right {
+    top: 50px;
+    right: 60px;
+    transform: rotate(35deg);
+}
+
+/* --- OJOS --- */
+.eye-patch {
+    position: absolute;
+    width: 70px;
+    height: 90px;
+    background: var(--eye-patch);
+    border-radius: 50%;
+    top: 25px;
+}
+
+.eye-patch.left { left: 20px; transform: rotate(15deg); }
+.eye-patch.right { right: 20px; transform: rotate(-15deg); }
+
+.eye {
     position: absolute;
     width: 40px;
-    height: 20px;
-    border-bottom: 5px solid red;
+    height: 50px;
+    background: #1a1a1a;
     border-radius: 50%;
-    bottom: 30px;
-    left: 55px;
+    top: 20px;
 }
 
-h1 {
-    color: #333;
+.eye-patch.left .eye { right: 5px; }
+.eye-patch.right .eye { left: 5px; }
+
+.pupil {
+    width: 10px;
+    height: 10px;
+    background: white;
+    border-radius: 50%;
+    margin: 10px 0 0 10px;
+}
+
+/* --- NARIZ Y BOCA --- */
+.nose {
+    position: absolute;
+    width: 45px;
+    height: 25px;
+    background: var(--nose-blue);
+    border-radius: 50% 50% 40% 40%;
+    top: 90px;
+    left: 77.5px;
+}
+
+.mouth {
+    position: absolute;
+    width: 80px;
+    height: 10px;
+    border-bottom: 3px solid #35668d;
+    border-radius: 50%;
+    top: 115px;
+    left: 60px;
 }
