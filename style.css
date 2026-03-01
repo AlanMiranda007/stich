@@ -10,6 +10,9 @@
     --azul-mar: #00bcd4;
     --azul-mar-profundo: #0097a7;
     --color-arena: #f1d2a1;
+    --color-sol: #ffeb3b;
+    --color-nube: #ffffff;
+    --color-pajarito: #333333;
 }
 
 body {
@@ -21,10 +24,11 @@ body {
     height: 100vh;
     overflow: hidden; /* Evita barras de desplazamiento */
     position: relative;
+    background: linear-gradient(to bottom, #87ceeb, #e0f7fa); /* Cielo */
 }
 
 /* =========================================
-   --- FONDO DE PLAYA (NUEVO) ---
+   --- FONDO DE PLAYA CON ELEMENTOS ---
    ========================================= */
 .escena-playa {
     position: absolute;
@@ -34,6 +38,80 @@ body {
     flex-direction: column;
     z-index: 1; /* Detrás de Stitch */
 }
+
+.sol {
+    position: absolute;
+    width: 80px;
+    height: 80px;
+    background: var(--color-sol);
+    border-radius: 50%;
+    top: 40px;
+    right: 40px;
+    box-shadow: 0 0 20px var(--color-sol);
+}
+
+.nube {
+    position: absolute;
+    background: var(--color-nube);
+    border-radius: 50px;
+}
+
+.nube.uno {
+    width: 120px;
+    height: 40px;
+    top: 60px;
+    left: 80px;
+}
+.nube.uno::after {
+    content: '';
+    position: absolute;
+    width: 60px;
+    height: 60px;
+    background: var(--color-nube);
+    border-radius: 50%;
+    top: -30px;
+    left: 30px;
+}
+
+.nube.dos {
+    width: 150px;
+    height: 50px;
+    top: 120px;
+    left: 200px;
+}
+.nube.dos::after {
+    content: '';
+    position: absolute;
+    width: 80px;
+    height: 80px;
+    background: var(--color-nube);
+    border-radius: 50%;
+    top: -40px;
+    left: 35px;
+}
+
+.pajarito {
+    position: absolute;
+    width: 15px;
+    height: 5px;
+    background: transparent;
+    border-top: 3px solid var(--color-pajarito);
+    border-radius: 50%;
+}
+.pajarito::after {
+    content: '';
+    position: absolute;
+    width: 15px;
+    height: 5px;
+    background: transparent;
+    border-top: 3px solid var(--color-pajarito);
+    border-radius: 50%;
+    left: 10px;
+}
+
+.pajarito.uno { top: 100px; right: 200px; transform: rotate(10deg); }
+.pajarito.dos { top: 130px; right: 180px; transform: rotate(-5deg); }
+.pajarito.tres { top: 115px; right: 220px; transform: rotate(20deg); }
 
 .mar {
     flex: 3;
@@ -111,9 +189,7 @@ body {
     transform: rotate(35deg);
 }
 
-/* =========================================
-   --- OJOS Y ANIMACIÓN (MODIFICADO) ---
-   ========================================= */
+/* --- OJOS Y ANIMACIÓN --- */
 .parche-ojo {
     position: absolute;
     width: 65px;
@@ -210,41 +286,54 @@ body {
     border-radius: 50%;
 }
 
-/* --- BRAZOS MEJORADOS (NOMBRES EN ESPAÑOL) --- */
+/* =========================================
+   --- BRAZOS (MODIFICADOS Y MEJORADOS) ---
+   ========================================= */
 .brazo-izquierdo {
     position: absolute;
-    width: 45px;
-    height: 110px;
+    width: 40px; /* Ancho del bíceps */
+    height: 80px; /* Largo del bíceps */
     background: var(--azul-stitch);
-    top: 5px;
-    left: -35px;
-    border-radius: 60% 40% 50% 50%; /* Hombro más redondeado */
-    transform: rotate(-60deg);
+    top: 35px;
+    left: -10px;
+    border-radius: 50% 50% 10% 10%; /* Hombro redondeado, codo menos */
+    transform: rotate(30deg);
     transform-origin: top right;
     z-index: -1;
 }
 
 .brazo-derecho {
     position: absolute;
-    width: 45px;
-    height: 110px;
+    width: 40px;
+    height: 80px;
     background: var(--azul-stitch);
-    top: 15px;
-    right: -35px;
-    border-radius: 40% 60% 50% 50%;
-    transform: rotate(60deg);
+    top: 35px;
+    right: 10px;
+    border-radius: 50% 50% 10% 10%;
+    transform: rotate(-30deg);
     transform-origin: top left;
     z-index: -1;
 }
 
+.antebrazo {
+    position: absolute;
+    width: 50px; /* Más ancho en el antebrazo */
+    height: 50px; /* Largo del antebrazo */
+    background: var(--azul-stitch);
+    border-radius: 10% 10% 50% 50%; /* Se ensancha hacia la mano */
+    bottom: -50px; /* Sale del bíceps */
+    left: -2.5px;
+}
+
 .mano {
     position: absolute;
-    width: 50px;
+    width: 55px; /* Mano ancha */
     height: 45px;
     background: var(--azul-stitch);
     border-radius: 50%;
-    bottom: -15px;
-    left: -2.5px;
+    bottom: -15px; /* Sale del antebrazo */
+    left: -5px;
+    box-shadow: inset 5px -5px 0 rgba(0,0,0,0.05); /* Sombra suave */
 }
 
 /* Garras de las manos */
@@ -255,13 +344,13 @@ body {
     height: 12px;
     background: var(--color-garra);
     border-radius: 50% 50% 0 0;
-    top: -5px;
+    top: 40px;
 }
 
-.mano::before { left: 10px; transform: rotate(-10deg); }
-.mano::after { right: 10px; transform: rotate(10deg); }
+.mano::before { left: 12px; transform: rotate(-160deg); }
+.mano::after { right: 12px; transform: rotate(160deg); }
 
-/* --- PIERNAS MEJORADAS --- */
+/* --- PIERNAS --- */
 .pierna-izquierda {
     position: absolute;
     width: 50px;
