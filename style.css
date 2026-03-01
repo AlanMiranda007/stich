@@ -1,143 +1,310 @@
 :root {
-    --stitch-blue: #4a8ec2;
-    --stitch-dark-blue: #35668d;
-    --stitch-light-blue: #9ed6f1;
-    --eye-patch: #c6e7f8;
-    --nose-blue: #2a3d66;
+    --azul-stitch: #4a8ec2;
+    --azul-oscuro: #35668d;
+    --azul-claro: #9ed6f1;
+    --color-parche: #c6e7f8;
+    --color-nariz: #2a3d66;
+    --rosa-oreja: #e99bb5;
+    --color-garra: #2a3d66;
+    /* Colores para el fondo */
+    --azul-mar: #00bcd4;
+    --azul-mar-profundo: #0097a7;
+    --color-arena: #f1d2a1;
 }
 
 body {
-    background-color: #f0f0f0;
+    margin: 0;
+    padding: 0;
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
-    margin: 0;
+    overflow: hidden; /* Evita barras de desplazamiento */
+    position: relative;
 }
 
-.canvas {
+/* =========================================
+   --- FONDO DE PLAYA (NUEVO) ---
+   ========================================= */
+.escena-playa {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    z-index: 1; /* Detrás de Stitch */
+}
+
+.mar {
+    flex: 3;
+    background: linear-gradient(to bottom, var(--azul-mar), var(--azul-mar-profundo));
+}
+
+.arena {
+    flex: 1;
+    background: var(--color-arena);
+    position: relative;
+}
+
+/* Opcional: una sombra de Stitch en la arena */
+.arena::after {
+    content: '';
+    position: absolute;
+    width: 200px;
+    height: 50px;
+    background: rgba(0,0,0,0.1);
+    border-radius: 50%;
+    top: -25px; /* Mitad en el mar, mitad en la arena */
+    left: calc(50% - 100px);
+}
+
+.lienzo {
     position: relative;
     width: 400px;
-    height: 400px;
-}
-
-/* --- CUERPO --- */
-.body {
-    position: absolute;
-    width: 140px;
-    height: 120px;
-    background: var(--stitch-blue);
-    bottom: 50px;
-    left: 130px;
-    border-radius: 50% 50% 40% 40%;
-}
-
-.tummy {
-    position: absolute;
-    width: 80px;
-    height: 70px;
-    background: var(--stitch-light-blue);
-    bottom: 10px;
-    left: 30px;
-    border-radius: 50%;
+    height: 500px;
+    z-index: 10; /* Sobre el fondo */
 }
 
 /* --- CABEZA --- */
-.head {
+.cabeza {
     position: absolute;
-    width: 200px;
-    height: 150px;
-    background: var(--stitch-blue);
+    width: 180px;
+    height: 140px;
+    background: var(--azul-stitch);
     top: 100px;
-    left: 100px;
+    left: 110px;
     border-radius: 50% 50% 45% 45%;
-    z-index: 10;
+    z-index: 20;
 }
 
 /* --- OREJAS --- */
-.ear {
+.oreja {
     position: absolute;
-    width: 70px;
-    height: 160px;
-    background: var(--stitch-blue);
+    width: 60px;
+    height: 150px;
+    background: var(--azul-stitch);
     border-radius: 50%;
-    z-index: 1;
+    z-index: 10;
     overflow: hidden;
 }
 
-.ear::after {
+.oreja::after {
     content: '';
     position: absolute;
     width: 70%;
-    height: 80%;
-    background: #e99bb5; /* El rosado de adentro */
+    height: 85%;
+    background: var(--rosa-oreja);
     border-radius: 50%;
     top: 10%;
     left: 15%;
 }
 
-.ear.left {
-    top: 50px;
-    left: 60px;
+.oreja.izquierda {
+    top: 60px;
+    left: 70px;
     transform: rotate(-35deg);
 }
 
-.ear.right {
-    top: 50px;
-    right: 60px;
+.oreja.derecha {
+    top: 60px;
+    right: 70px;
     transform: rotate(35deg);
 }
 
-/* --- OJOS --- */
-.eye-patch {
+/* =========================================
+   --- OJOS Y ANIMACIÓN (MODIFICADO) ---
+   ========================================= */
+.parche-ojo {
     position: absolute;
-    width: 70px;
-    height: 90px;
-    background: var(--eye-patch);
+    width: 65px;
+    height: 85px;
+    background: var(--color-parche);
     border-radius: 50%;
     top: 25px;
+    overflow: hidden; /* Importante para el parpadeo */
 }
 
-.eye-patch.left { left: 20px; transform: rotate(15deg); }
-.eye-patch.right { right: 20px; transform: rotate(-15deg); }
+.parche-ojo.izquierda { left: 20px; transform: rotate(15deg); }
+.parche-ojo.derecha { right: 20px; transform: rotate(-15deg); }
 
-.eye {
+/* Contenedor para aplicar la animación de parpadeo */
+.ojo-parpadeo {
     position: absolute;
-    width: 40px;
-    height: 50px;
+    width: 100%;
+    height: 100%;
+    background: transparent;
+    animation: parpadeo 4s infinite; /* Llama a la animación */
+}
+
+.ojo {
+    position: absolute;
+    width: 38px;
+    height: 48px;
     background: #1a1a1a;
     border-radius: 50%;
-    top: 20px;
+    top: 18px;
 }
 
-.eye-patch.left .eye { right: 5px; }
-.eye-patch.right .eye { left: 5px; }
+.parche-ojo.izquierda .ojo { right: 4px; }
+.parche-ojo.derecha .ojo { left: 4px; }
 
-.pupil {
-    width: 10px;
-    height: 10px;
+.pupila {
+    width: 9px;
+    height: 9px;
     background: white;
     border-radius: 50%;
     margin: 10px 0 0 10px;
 }
 
-/* --- NARIZ Y BOCA --- */
-.nose {
-    position: absolute;
-    width: 45px;
-    height: 25px;
-    background: var(--nose-blue);
-    border-radius: 50% 50% 40% 40%;
-    top: 90px;
-    left: 77.5px;
+/* DEFINICIÓN DE LA ANIMACIÓN DE PARPADEO */
+@keyframes parpadeo {
+    0%, 90%, 100% {
+        transform: scaleY(1); /* Ojo abierto */
+        background: transparent;
+    }
+    95% {
+        transform: scaleY(0); /* Ojo cerrado */
+        background: var(--color-parche); /* Oculta el parche con el color de fondo */
+    }
 }
 
-.mouth {
+.nariz {
     position: absolute;
-    width: 80px;
-    height: 10px;
-    border-bottom: 3px solid #35668d;
-    border-radius: 50%;
-    top: 115px;
-    left: 60px;
+    width: 40px;
+    height: 22px;
+    background: var(--color-nariz);
+    border-radius: 50% 50% 40% 40%;
+    top: 85px;
+    left: 70px;
 }
+
+.boca {
+    position: absolute;
+    width: 70px;
+    height: 10px;
+    border-bottom: 3px solid var(--azul-oscuro);
+    border-radius: 50%;
+    top: 110px;
+    left: 55px;
+}
+
+/* --- CUERPO --- */
+.cuerpo {
+    position: absolute;
+    width: 140px;
+    height: 150px;
+    background: var(--azul-stitch);
+    top: 210px;
+    left: 130px;
+    border-radius: 50% 50% 40% 40%;
+    z-index: 15;
+}
+
+.panza {
+    position: absolute;
+    width: 90px;
+    height: 100px;
+    background: var(--azul-claro);
+    top: 20px;
+    left: 25px;
+    border-radius: 50%;
+}
+
+/* --- BRAZOS MEJORADOS (NOMBRES EN ESPAÑOL) --- */
+.brazo-izquierdo {
+    position: absolute;
+    width: 45px;
+    height: 110px;
+    background: var(--azul-stitch);
+    top: 5px;
+    left: -35px;
+    border-radius: 60% 40% 50% 50%; /* Hombro más redondeado */
+    transform: rotate(-60deg);
+    transform-origin: top right;
+    z-index: -1;
+}
+
+.brazo-derecho {
+    position: absolute;
+    width: 45px;
+    height: 110px;
+    background: var(--azul-stitch);
+    top: 15px;
+    right: -35px;
+    border-radius: 40% 60% 50% 50%;
+    transform: rotate(60deg);
+    transform-origin: top left;
+    z-index: -1;
+}
+
+.mano {
+    position: absolute;
+    width: 50px;
+    height: 45px;
+    background: var(--azul-stitch);
+    border-radius: 50%;
+    bottom: -15px;
+    left: -2.5px;
+}
+
+/* Garras de las manos */
+.mano::before, .mano::after {
+    content: '';
+    position: absolute;
+    width: 8px;
+    height: 12px;
+    background: var(--color-garra);
+    border-radius: 50% 50% 0 0;
+    top: -5px;
+}
+
+.mano::before { left: 10px; transform: rotate(-10deg); }
+.mano::after { right: 10px; transform: rotate(10deg); }
+
+/* --- PIERNAS MEJORADAS --- */
+.pierna-izquierda {
+    position: absolute;
+    width: 50px;
+    height: 90px;
+    background: var(--azul-oscuro);
+    bottom: -30px;
+    left: 10px;
+    border-radius: 25px;
+    transform: rotate(15deg);
+    z-index: -2;
+}
+
+.pierna-derecha {
+    position: absolute;
+    width: 50px;
+    height: 90px;
+    background: var(--azul-oscuro);
+    bottom: -30px;
+    right: 10px;
+    border-radius: 25px;
+    transform: rotate(-15deg);
+    z-index: -2;
+}
+
+.pie {
+    position: absolute;
+    width: 65px;
+    height: 40px;
+    background: var(--azul-stitch);
+    border-radius: 20px 20px 10px 10px;
+    bottom: -15px;
+    left: -7.5px;
+}
+
+.dedo {
+    position: absolute;
+    width: 12px;
+    height: 12px;
+    background: var(--color-garra);
+    border-radius: 50%;
+    bottom: -5px;
+}
+
+.dedo.uno { left: 8px; }
+.dedo.dos { left: 26.5px; bottom: -7px; }
+.dedo.tres { right: 8px; }
