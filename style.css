@@ -24,7 +24,7 @@ body {
     background: linear-gradient(to bottom, #87ceeb, #e0f7fa);
 }
 
-/* --- PLAYA --- */
+/* --- ELEMENTOS DE AMBIENTE --- */
 .escena-playa { position: absolute; width: 100%; height: 100%; display: flex; flex-direction: column; z-index: 1; }
 .sol { position: absolute; width: 80px; height: 80px; background: var(--color-sol); border-radius: 50%; top: 40px; right: 40px; box-shadow: 0 0 20px var(--color-sol); }
 .nube { position: absolute; background: var(--color-nube); border-radius: 50px; }
@@ -55,38 +55,22 @@ body {
 .flor.f3 { bottom: 30px; left: 5px; transform: scale(0.9); }
 .nombre-tabla { position: absolute; top: 50%; transform: translateY(-50%) rotate(-90deg); color: white; font-family: 'Arial Black', sans-serif; font-size: 14px; text-transform: uppercase; text-shadow: 2px 2px 0px rgba(0,0,0,0.2); }
 
-/* --- CANGREJITO ANIMADO --- */
+/* --- CANGREJITO --- */
 .cangrejo {
-    position: absolute; bottom: 40px; left: 20%;
-    width: 40px; height: 25px;
-    animation: caminar 5s infinite alternate ease-in-out;
-    z-index: 6;
+    position: absolute; bottom: 40px; left: 20%; width: 40px; height: 25px;
+    animation: caminar 5s infinite alternate ease-in-out; z-index: 6;
 }
-.cuerpo-cangrejo {
-    width: 100%; height: 100%; background: var(--color-cangrejo);
-    border-radius: 50% 50% 40% 40%; position: relative;
-}
-.ojo-cangrejo {
-    position: absolute; width: 8px; height: 8px; background: white;
-    border-radius: 50%; top: -10px; border: 1px solid #333;
-}
+.cuerpo-cangrejo { width: 100%; height: 100%; background: var(--color-cangrejo); border-radius: 50% 50% 40% 40%; position: relative; }
+.ojo-cangrejo { position: absolute; width: 8px; height: 8px; background: white; border-radius: 50%; top: -10px; border: 1px solid #333; }
 .ojo-cangrejo::after { content: ''; position: absolute; width: 4px; height: 4px; background: black; border-radius: 50%; top: 1px; left: 1px; }
 .ojo-cangrejo.izq { left: 8px; }
 .ojo-cangrejo.der { right: 8px; }
-
-.tenaza {
-    position: absolute; width: 15px; height: 15px; background: var(--color-cangrejo);
-    border-radius: 50% 50% 0 0; top: 5px; border: 1px solid #b71c1c;
-}
+.tenaza { position: absolute; width: 15px; height: 15px; background: var(--color-cangrejo); border-radius: 50% 50% 0 0; top: 5px; }
 .tenaza.izq { left: -12px; transform: rotate(-45deg); }
 .tenaza.der { right: -12px; transform: rotate(45deg); }
+@keyframes caminar { 0% { transform: translateX(0); } 100% { transform: translateX(80px); } }
 
-@keyframes caminar {
-    0% { transform: translateX(0) rotate(0deg); }
-    100% { transform: translateX(100px) rotate(5deg); }
-}
-
-/* --- STITCH (OJOS ARREGLADOS) --- */
+/* --- STITCH (ORIGINAL CON OJOS SIMÉTRICOS) --- */
 .lienzo { position: relative; width: 400px; height: 500px; z-index: 10; }
 .cabeza { position: absolute; width: 180px; height: 140px; background: var(--azul-stitch); top: 100px; left: 110px; border-radius: 50% 50% 45% 45%; z-index: 20; }
 .oreja { position: absolute; width: 60px; height: 150px; background: var(--azul-stitch); border-radius: 50%; z-index: 10; overflow: hidden; }
@@ -95,16 +79,20 @@ body {
 .oreja.derecha { top: 60px; right: 70px; transform: rotate(35deg); }
 
 .parche-ojo { position: absolute; width: 65px; height: 85px; background: var(--color-parche); border-radius: 50%; top: 25px; overflow: hidden; }
-/* CORRECCIÓN DE ROTACIÓN AQUÍ 👇 */
-.parche-ojo.izquierda { left: 20px; transform: rotate(5deg); }
-.parche-ojo.derecha { right: 20px; transform: rotate(-5deg); }
+/* AJUSTE PARA QUE NO ESTÉN CHUECOS */
+.parche-ojo.izquierda { left: 20px; transform: rotate(8deg); }
+.parche-ojo.derecha { right: 20px; transform: rotate(-8deg); }
 
 .ojo-parpadeo { position: absolute; width: 100%; height: 100%; animation: parpadeo 4s infinite; }
 .ojo { position: absolute; width: 38px; height: 48px; background: #1a1a1a; border-radius: 50%; top: 18px; }
+.parche-ojo.izquierda .ojo { right: 4px; }
+.parche-ojo.derecha .ojo { left: 4px; }
 .pupila { width: 9px; height: 9px; background: white; border-radius: 50%; margin: 10px 0 0 10px; }
 @keyframes parpadeo { 0%, 90%, 100% { transform: scaleY(1); } 95% { transform: scaleY(0); } }
+
 .nariz { position: absolute; width: 40px; height: 22px; background: var(--color-nariz); border-radius: 50% 50% 40% 40%; top: 85px; left: 70px; }
 .boca { position: absolute; width: 70px; height: 10px; border-bottom: 3px solid var(--azul-oscuro); border-radius: 50%; top: 110px; left: 55px; }
+
 .cuerpo { position: absolute; width: 140px; height: 150px; background: var(--azul-stitch); top: 210px; left: 130px; border-radius: 50% 50% 40% 40%; z-index: 15; }
 .panza { position: absolute; width: 90px; height: 100px; background: var(--azul-claro); top: 20px; left: 25px; border-radius: 50%; }
 .brazo-izquierdo, .brazo-derecho { position: absolute; width: 40px; height: 80px; background: var(--azul-stitch); top: 35px; z-index: -1; }
