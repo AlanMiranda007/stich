@@ -1,64 +1,153 @@
+:root {
+    --azul-stitch: #4a8ec2;
+    --azul-oscuro: #35668d;
+    --azul-claro: #9ed6f1;
+    --color-parche: #c6e7f8;
+    --color-nariz: #2a3d66;
+    --rosa-oreja: #e99bb5;
+    --color-garra: #2a3d66;
+    --azul-mar: #00bcd4;
+    --azul-mar-profundo: #0097a7;
+    --color-arena: #f1d2a1;
+    --color-sol: #ffeb3b;
+    --color-nube: #ffffff;
+    --color-pajarito: #333333;
+    /* Colores para el letrero */
+    --cafe-madera: #8d6e63;
+    --cafe-oscuro: #5d4037;
+}
 
 body {
     margin: 0;
-    height: 100vh;
+    padding: 0;
     display: flex;
     justify-content: center;
     align-items: center;
-    background: linear-gradient(135deg, #87ceeb, #ffffff);
-    font-family: Arial, sans-serif;
-}
-
-header {
-    text-align: center;
-}
-
-.cara {
+    height: 100vh;
+    overflow: hidden;
     position: relative;
-    width: 150px;
-    height: 150px;
-    background: #ffd699;
-    border-radius: 50%;
-    margin: 0 auto 20px auto;
+    background: linear-gradient(to bottom, #87ceeb, #e0f7fa);
 }
 
-.ojo {
+/* --- ESCENA FONDO --- */
+.escena-playa {
     position: absolute;
-    width: 20px;
-    height: 20px;
-    background: black;
-    border-radius: 50%;
-    top: 40px;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    z-index: 1;
 }
 
-.ojo-izq {
-    left: 40px;
-}
-
-.ojo-der {
-    right: 40px;
-}
-
-.bigote {
+.sol {
     position: absolute;
     width: 80px;
-    height: 20px;
-    background: black;
-    top: 80px;
-    left: 35px;
+    height: 80px;
+    background: var(--color-sol);
+    border-radius: 50%;
+    top: 40px;
+    right: 40px;
+    box-shadow: 0 0 20px var(--color-sol);
+}
+
+.nube {
+    position: absolute;
+    background: var(--color-nube);
     border-radius: 50px;
 }
 
-.boca {
+.nube.uno { width: 120px; height: 40px; top: 60px; left: 80px; }
+.nube.uno::after { content: ''; position: absolute; width: 60px; height: 60px; background: var(--color-nube); border-radius: 50%; top: -30px; left: 30px; }
+
+.nube.dos { width: 150px; height: 50px; top: 120px; left: 200px; }
+.nube.dos::after { content: ''; position: absolute; width: 80px; height: 80px; background: var(--color-nube); border-radius: 50%; top: -40px; left: 35px; }
+
+.pajarito { position: absolute; width: 15px; height: 5px; background: transparent; border-top: 3px solid var(--color-pajarito); border-radius: 50%; }
+.pajarito::after { content: ''; position: absolute; width: 15px; height: 5px; background: transparent; border-top: 3px solid var(--color-pajarito); border-radius: 50%; left: 10px; }
+.pajarito.uno { top: 100px; right: 200px; transform: rotate(10deg); }
+.pajarito.dos { top: 130px; right: 180px; transform: rotate(-5deg); }
+.pajarito.tres { top: 115px; right: 220px; transform: rotate(20deg); }
+
+.mar { flex: 3; background: linear-gradient(to bottom, var(--azul-mar), var(--azul-mar-profundo)); }
+.arena { flex: 1; background: var(--color-arena); position: relative; }
+
+/* --- EL LETRERO --- */
+.letrero-contenedor {
     position: absolute;
-    width: 40px;
-    height: 20px;
-    border-bottom: 5px solid red;
-    border-radius: 50%;
     bottom: 30px;
-    left: 55px;
+    right: 10%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transform: rotate(-3deg);
+    z-index: 50;
 }
 
-h1 {
-    color: #333;
+.madera-letrero {
+    background-color: var(--cafe-madera);
+    color: #ffe0b2;
+    padding: 8px 15px;
+    font-family: 'Comic Sans MS', cursive, sans-serif;
+    font-weight: bold;
+    font-size: 1.1rem;
+    border: 3px solid var(--cafe-oscuro);
+    border-radius: 3px;
+    box-shadow: 3px 3px 5px rgba(0,0,0,0.2);
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+    white-space: nowrap;
 }
+
+.poste-letrero {
+    width: 10px;
+    height: 35px;
+    background-color: var(--cafe-oscuro);
+    margin-top: -2px;
+}
+
+/* --- STITCH --- */
+.lienzo { position: relative; width: 400px; height: 500px; z-index: 10; }
+
+.cabeza {
+    position: absolute; width: 180px; height: 140px; background: var(--azul-stitch);
+    top: 100px; left: 110px; border-radius: 50% 50% 45% 45%; z-index: 20;
+}
+
+.oreja { position: absolute; width: 60px; height: 150px; background: var(--azul-stitch); border-radius: 50%; z-index: 10; overflow: hidden; }
+.oreja::after { content: ''; position: absolute; width: 70%; height: 85%; background: var(--rosa-oreja); border-radius: 50%; top: 10%; left: 15%; }
+.oreja.izquierda { top: 60px; left: 70px; transform: rotate(-35deg); }
+.oreja.derecha { top: 60px; right: 70px; transform: rotate(35deg); }
+
+.parche-ojo { position: absolute; width: 65px; height: 85px; background: var(--color-parche); border-radius: 50%; top: 25px; overflow: hidden; }
+.parche-ojo.izquierda { left: 20px; transform: rotate(15deg); }
+.parche-ojo.derecha { right: 20px; transform: rotate(-15deg); }
+
+.ojo-parpadeo { position: absolute; width: 100%; height: 100%; animation: parpadeo 4s infinite; }
+.ojo { position: absolute; width: 38px; height: 48px; background: #1a1a1a; border-radius: 50%; top: 18px; }
+.parche-ojo.izquierda .ojo { right: 4px; }
+.parche-ojo.derecha .ojo { left: 4px; }
+.pupila { width: 9px; height: 9px; background: white; border-radius: 50%; margin: 10px 0 0 10px; }
+
+@keyframes parpadeo {
+    0%, 90%, 100% { transform: scaleY(1); }
+    95% { transform: scaleY(0); }
+}
+
+.nariz { position: absolute; width: 40px; height: 22px; background: var(--color-nariz); border-radius: 50% 50% 40% 40%; top: 85px; left: 70px; }
+.boca { position: absolute; width: 70px; height: 10px; border-bottom: 3px solid var(--azul-oscuro); border-radius: 50%; top: 110px; left: 55px; }
+
+.cuerpo { position: absolute; width: 140px; height: 150px; background: var(--azul-stitch); top: 210px; left: 130px; border-radius: 50% 50% 40% 40%; z-index: 15; }
+.panza { position: absolute; width: 90px; height: 100px; background: var(--azul-claro); top: 20px; left: 25px; border-radius: 50%; }
+
+.brazo-izquierdo, .brazo-derecho { position: absolute; width: 40px; height: 80px; background: var(--azul-stitch); top: 35px; z-index: -1; }
+.brazo-izquierdo { left: -10px; transform: rotate(30deg); transform-origin: top right; }
+.brazo-derecho { right: 10px; transform: rotate(-30deg); transform-origin: top left; }
+
+.antebrazo { position: absolute; width: 50px; height: 50px; background: var(--azul-stitch); border-radius: 10% 10% 50% 50%; bottom: -50px; left: -2.5px; }
+.mano { position: absolute; width: 55px; height: 45px; background: var(--azul-stitch); border-radius: 50%; bottom: -15px; left: -5px; }
+
+.pierna-izquierda, .pierna-derecha { position: absolute; width: 50px; height: 90px; background: var(--azul-oscuro); bottom: -30px; border-radius: 25px; z-index: -2; }
+.pierna-izquierda { left: 10px; transform: rotate(15deg); }
+.pierna-derecha { right: 10px; transform: rotate(-15deg); }
+.pie { position: absolute; width: 65px; height: 40px; background: var(--azul-stitch); border-radius: 20px 20px 10px 10px; bottom: -15px; left: -7.5px; }
+.dedo { position: absolute; width: 12px; height: 12px; background: var(--color-garra); border-radius: 50%; bottom: -5px; }
+.dedo.uno { left: 8px; } .dedo.dos { left: 26.5px; bottom: -7px; } .dedo.tres { right: 8px; }
